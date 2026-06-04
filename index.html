@@ -22,23 +22,57 @@
 
     }
 
+    /* INTRO */
+
+    #intro {
+
+      position: fixed;
+
+      width: 100%;
+
+      height: 100vh;
+
+      background: linear-gradient(135deg, #ff4d88, #ff99cc);
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      z-index: 999;
+
+      color: white;
+
+    }
+
+    #intro button {
+
+      padding: 12px 25px;
+
+      border: none;
+
+      border-radius: 25px;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      background: white;
+
+      color: #d63384;
+
+      margin-top: 10px;
+
+    }
+
     h1 {
 
       color: #d63384;
 
-      font-size: 40px;
-
-      margin-top: 30px;
-
-    }
-
-    p {
-
-      color: #444;
-
-      font-size: 18px;
-
-      padding: 0 20px;
+      margin-top: 20px;
 
     }
 
@@ -58,27 +92,29 @@
 
     }
 
+    /* GALLERY */
+
     .gallery {
 
-      display: flex;
+      display: grid;
 
-      flex-wrap: wrap;
-
-      justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 
       gap: 10px;
 
       padding: 20px;
 
+      max-width: 900px;
+
+      margin: auto;
+
     }
 
     .gallery img {
 
-      width: 160px;
+      width: 100%;
 
       border-radius: 15px;
-
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 
       transition: transform 0.3s;
 
@@ -86,21 +122,21 @@
 
     .gallery img:hover {
 
-      transform: scale(1.08);
+      transform: scale(1.1);
 
     }
 
-    /* Floating hearts */
+    /* HEARTS */
 
     .heart {
 
-      position: absolute;
+      position: fixed;
 
       color: #ff4d88;
 
-      animation: floatUp 6s infinite;
+      font-size: 18px;
 
-      font-size: 20px;
+      animation: floatUp 6s linear infinite;
 
     }
 
@@ -114,27 +150,67 @@
 
     }
 
+    /* POPUP */
+
+    #popup {
+
+      position: fixed;
+
+      bottom: 20px;
+
+      right: 20px;
+
+      background: white;
+
+      padding: 15px;
+
+      border-radius: 15px;
+
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+      display: none;
+
+    }
+
   </style>
 
 </head>
 
 <body>
 
-  <h1>Happy Anniversary 💖</h1>
+<!-- INTRO -->
+
+<div id="intro">
+
+  <h1>💖 Welcome My Love 💖</h1>
+
+  <button onclick="startSite()">Enter Our Story</button>
+
+</div>
+
+<!-- CONTENT -->
+
+<div id="content" style="display:none;">
+
+  <h1>Our Love Story 💕</h1>
 
   <div class="box">
 
-    <p>
-
-      Every moment with you feels special.  
-
-      This website is just a small way of showing my love for you 💕
-
-    </p>
+    <p>This is our space full of memories, love, and happiness 💖</p>
 
   </div>
 
-  <h2>Our Memories 📸</h2>
+  <!-- TIMER -->
+
+  <div class="box">
+
+    <h2>⏳ Time Together</h2>
+
+    <p id="timer"></p>
+
+  </div>
+
+  <h2>Memories 📸</h2>
 
   <div class="gallery">
 
@@ -160,45 +236,63 @@
 
   </div>
 
-  <div class="box">
+</div>
 
-    <p>
+<!-- POPUP -->
 
-      Thank you for loving me, supporting me, and being my happiness 💗
+<div id="popup">💌 I love you forever 💖</div>
 
-    </p>
+<script>
 
-  </div>
+function startSite() {
 
-  <!-- Floating hearts script -->
+  document.getElementById("intro").style.display = "none";
 
-  <script>
+  document.getElementById("content").style.display = "block";
 
-    function createHeart() {
+  document.getElementById("popup").style.display = "block";
 
-      const heart = document.createElement("div");
+}
 
-      heart.innerHTML = "💖";
+/* FLOATING HEARTS */
 
-      heart.classList.add("heart");
+setInterval(() => {
 
-      heart.style.left = Math.random() * 100 + "vw";
+  const heart = document.createElement("div");
 
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+  heart.classList.add("heart");
 
-      document.body.appendChild(heart);
+  heart.innerHTML = "💖";
 
-      setTimeout(() => {
+  heart.style.left = Math.random() * 100 + "vw";
 
-        heart.remove();
+  heart.style.animationDuration = (3 + Math.random() * 3) + "s";
 
-      }, 6000);
+  document.body.appendChild(heart);
 
-    }
+  setTimeout(() => heart.remove(), 6000);
 
-    setInterval(createHeart, 500);
+}, 300);
 
-  </script>
+/* TIMER - START DATE UPDATED */
+
+const startDate = new Date("2024-07-21");
+
+setInterval(() => {
+
+  const now = new Date();
+
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  document.getElementById("timer").innerHTML =
+
+    days + " days of love 💖";
+
+}, 1000);
+
+</script>
 
 </body>
 
